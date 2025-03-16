@@ -1,6 +1,6 @@
 package com.url.shortener.service;
 
-//import com.url.shortener.dto.LoginRequest;
+import com.url.shortener.dto.LoginRequest;
 import com.url.shortener.entity.User;
 import com.url.shortener.repository.UserRepository;
 import com.url.shortener.security.jwt.JwtAuthenticationResponse;
@@ -27,6 +27,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public JwtAuthenticationResponse authenticateUser(LoginRequest loginRequest){
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
+                        loginRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        String jwt = jwtUtils.generateToken(userDetails);
+        return new JwtAuthenticationResponse(jwt);
+    }
 
     public User findByUsername(String name) {
         return userRepository.findByUsername(name).orElseThrow(

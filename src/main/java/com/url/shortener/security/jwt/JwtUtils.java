@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class JwtUtils {
 
 
-    private String jwtSecret = "kjnkjnknnkn";
+    private String jwtSecret = "e0958116a70d7eecb57aeb1133e397f750fc94cd6fb8c898859f5416d7b053e960661a250db61d53e10647ecc4326094525c60e6a34d73718e801ec585cb1dcb";
 
 
     private int jwtExpirationMs = 999999;
